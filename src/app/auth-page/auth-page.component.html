@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center" *ngIf="error">
+            <div class="alert alert-danger w-50" style="display: flex">
+                <p>{{ error }}</p>
+                <a (click)="error=null" style="margin-left: auto">Close</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="w-50">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" formControlName="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" formControlName="password" class="form-control">
+                </div>
+                <br>
+                <div>
+                    <button class="btn btn-primary" type="submit">{{ isLoginMode ? 'Login' : 'Sign up' }}</button>
+                    &nbsp;
+                    <button class="btn btn-primary" type="button" (click)="onSwithcLoginMode()">Switch to {{!isLoginMode ? 'login' : 'sign up'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

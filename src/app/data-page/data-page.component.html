@@ -1,0 +1,25 @@
+<div class="container">
+    <ng-container *ngIf="notes$ | async as notes; else loadingOrError">
+        <div class="row" *ngFor="let note of notes">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ note.title }}</h5>
+                  <p class="card-text">{{note.content}}</p>
+                </div>
+              </div>
+        </div>
+    </ng-container>
+</div>
+<ng-template #loadingOrError>
+    <ng-container *ngIf="errorMessage"; else loading>
+        <div class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+    </ng-container>
+
+    <ng-template #loading>
+        <div class="container" style="text-align: center;">
+            Loading...
+        </div>
+    </ng-template>
+</ng-template>
