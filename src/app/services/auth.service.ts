@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, catchError, debounceTime, Subject, tap, throwError } from 'rxjs';
 import { User } from '../models/user-model';
+import { CookieStorageService } from './cookie-storage-service';
 import { LocalStorageService } from './local-storage-service';
 import { IStorage } from './storage-interface';
 
@@ -22,7 +24,8 @@ export interface AuthResponseData {
 export class AuthService {
   user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
-  protected storageService: IStorage = new LocalStorageService();
+  //protected storageService: IStorage = new LocalStorageService();
+  protected storageService: IStorage;
 
   // urls
   protected URL_SIGNUP = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCy8Qp55AY7Cb4agy9krS_veQN-suxgNTA';
@@ -31,7 +34,10 @@ export class AuthService {
   constructor(
     protected http: HttpClient,
     protected router: Router,
-  ) {}
+    protected cookie: CookieService
+  ) {
+    this.storageService = new CookieStorageService(cookie);
+  }
 
   signup(email: string, password: string) {
     return this.http.post<AuthResponseData>(this.URL_SIGNUP, {

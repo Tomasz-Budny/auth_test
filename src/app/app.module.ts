@@ -8,6 +8,7 @@ import { AuthPageComponent } from './auth-page/auth-page.component';
 import { DataPageComponent } from './data-page/data-page.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AuthInterceptorService } from './auth-page/auth-interceptor.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AuthInterceptorService } from './auth-page/auth-interceptor.service';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
