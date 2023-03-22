@@ -9,10 +9,12 @@ export class CookieStorageService implements IStorage {
     ) {}
 
     getUserData(): User {
-        const userData = JSON.parse(this.cookie.get('user'));
-        if(!userData) {
+        const userRaw = this.cookie.get('user');
+        if(userRaw === "") {
             return null;
         }
+
+        const userData = JSON.parse(userRaw);
         
         return new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
     }

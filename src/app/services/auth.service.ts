@@ -37,6 +37,7 @@ export class AuthService {
     protected cookie: CookieService
   ) {
     this.storageService = new CookieStorageService(cookie);
+    //this.storageService = new LocalStorageService();
   }
 
   signup(email: string, password: string) {
@@ -62,7 +63,6 @@ export class AuthService {
   }
 
   logout() {
-    //zastąpić servisem
     this.storageService.removeUserData();
 
     this.user.next(null);
