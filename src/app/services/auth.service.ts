@@ -49,7 +49,7 @@ export class AuthService {
     }).pipe(
       debounceTime(1000),
       catchError(this.handleSignUpError), 
-      tap(res => { this.handleAuthentication(res); })
+      tap(res => this.handleAuthentication(res))
     );
   };
 
@@ -60,7 +60,7 @@ export class AuthService {
       returnSecureToken: true
     }).pipe(
       catchError(this.handleLoginError),
-      tap(res => { this.handleAuthentication(res); })
+      tap(res => this.handleAuthentication(res))
     );
   }
 
