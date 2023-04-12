@@ -46,10 +46,11 @@ export class AuthService {
       password: password,
       returnSecureToken: true
       // debounce nie będzie działał ponieważ cały czas tworzymy nowy observable
-    }).pipe(debounceTime(1000), catchError(this.handleSignUpError), 
-    tap(res => {
-      this.handleAuthentication(res);
-    }));
+    }).pipe(
+      debounceTime(1000),
+      catchError(this.handleSignUpError), 
+      tap(res => { this.handleAuthentication(res); })
+    );
   };
 
   login(email: string, password: string) {
@@ -57,9 +58,10 @@ export class AuthService {
       email: email,
       password: password,
       returnSecureToken: true
-    }).pipe(catchError(this.handleLoginError), tap(res => {
-      this.handleAuthentication(res);
-    }));
+    }).pipe(
+      catchError(this.handleLoginError),
+      tap(res => { this.handleAuthentication(res); })
+    );
   }
 
   logout() {
